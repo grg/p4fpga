@@ -64,7 +64,7 @@ bool SelectStmtCodeGen::preorder(const IR::ListExpression* expr) {
       params.push_back("Bit#(" + std::to_string(width) + ") " + member->member);
       match.push_back(member->member);
     } else {
-      ::error("lookahead not handled yet");
+      error("lookahead not handled yet");
     }
   }
   // LOG1("param: " << params);
@@ -241,7 +241,7 @@ bool ExtractLenCodeGen::preorder (const IR::MethodCallExpression* expr) {
       builder->append_line("typedef %d %sSz;", header_width, CamelCase(make_valid_ident(state->toString())));
     }
   } else if (expr->method->toString() == "packet.lookahead") {
-    ::warning("look ahead not handled");
+    warning("look ahead not handled");
   }
   return false;
 }
@@ -277,7 +277,7 @@ bool ExtractFuncCodeGen::preorder(const IR::ListExpression* expr) {
       cstring name = header->member.toString() + "." + member->member.toString();
       match.push_back(name);
     } else {
-      ::error("lookahead not handled yet");
+      error("lookahead not handled yet");
     }
   }
   return false;
@@ -335,7 +335,7 @@ bool ExtractFuncCodeGen::preorder (const IR::AssignmentStatement* stmt) {
       builder->appendFormat("let %s = ", tmp_var);
       printPath=true;
       visit(expr->left);
-      builder->appendFormat(stmt->right->toString());
+      builder->appendFormat(stmt->right->toString().c_str());
       visit(expr->right);
       printPath=false;
       builder->appendLine(";");
@@ -367,7 +367,7 @@ bool ExtractFuncCodeGen::preorder (const IR::Member* member) {
 
 bool ExtractFuncCodeGen::preorder (const IR::Constant* constant) {
   if (!printPath) return false;
-  builder->appendFormat(constant->toString());
+  builder->appendFormat(constant->toString().c_str());
   return false;
 }
 
@@ -475,7 +475,7 @@ bool DfifoCodeGen::preorder(const IR::MethodCallExpression* expr) {
       visited.insert(name);
     }
   } else if (expr->method->toString() == "packet.lookahead") {
-    ::warning("look ahead not handled");
+    warning("look ahead not handled");
   }
   return false;
 }
@@ -609,9 +609,9 @@ void FPGAParser::emitAcceptedHeaders(const IR::Type_Struct* headers) {
         auto member = m.second;
       }
     } else if (type->is<IR::Type_Stack>()) {
-      ::warning("TODO: generate out_ff for header stack;");
+      warning("TODO: generate out_ff for header stack;");
     } else {
-      ::error("Unknown header type ", type);
+      error("Unknown header type ", type);
     }
   }
 }
@@ -756,7 +756,7 @@ bool FPGAParser::build() {
   auto pl = parserBlock->container->type->applyParams;
   // as defined in v1model.h
   if (pl->size() != 4) {
-    ::error("Expected parser to have exactly 4 parameters");
+    error("Expected parser to have exactly 4 parameters");
     return false;
   }
   auto model = program->v1model;

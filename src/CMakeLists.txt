@@ -52,9 +52,20 @@ set (P4C_P4FPGA_SRCS
 
 add_library(p4fpga_backend ${P4FPGA_SOURCES})
 add_dependencies(p4fpga_backend genIR)
+target_link_libraries (p4fpga_backend
+  PRIVATE absl::strings
+  PUBLIC ${LIBGC_LIBRARIES}
+)
 
 find_package(Boost REQUIRED COMPONENTS system filesystem)
 include_directories(${Boost_INCLUDE_DIRS})
 
 add_executable(p4c-p4fpga ${P4C_P4FPGA_SRCS})
-target_link_libraries (p4c-p4fpga p4fpga_backend ${P4C_LIBRARIES} ${P4C_LIB_DEPS} ${Boost_SYSTEM_LIBRARY} ${Boost_FILESYSTEM_LIBRARY})
+target_link_libraries (p4c-p4fpga
+  p4fpga_backend
+  ${P4C_LIBRARIES}
+  ${P4C_LIB_DEPS}
+  ${Boost_SYSTEM_LIBRARY}
+  ${Boost_FILESYSTEM_LIBRARY}
+  absl::strings
+)
