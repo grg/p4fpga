@@ -21,8 +21,8 @@ using namespace P4;
 int main(int argc, char *const argv[]) {
     setup_gc_logging();
     setup_signals();
-
-    FPGAOptions options;
+    AutoCompileContext autoTCContext(new FPGAContext);
+    auto &options = FPGAContext::get().options();
 
     if (options.process(argc, argv) != nullptr)
         options.setInputFile();

@@ -47,4 +47,7 @@ class FPGAOptions : public P4::CompilerOptions {
   }
 };
 
+using FPGAContext = P4::P4CContextWithOptions<FPGAOptions>;
+
+
 #endif
