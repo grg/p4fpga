@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/p4fpga/p4fpga.svg?branch=master)](https://travis-ci.org/p4fpga/p4fpga)
+[![Build](https://github.com/p4fpga/p4fpga/actions/workflows/build.yml/badge.svg)](https://github.com/p4fpga/p4fpga/actions/workflows/build.yml)
 
 # Join P4FPGA email list:
 

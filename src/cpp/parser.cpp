@@ -575,8 +575,8 @@ void FPGAParser::emitStructs(BSVProgram & bsv) {
     auto field_t = typeMap->getType(f);
     if (field_t->is<IR::Type_Header>()) {
       field_t->apply(visitor);
-    } else if (field_t->is<IR::Type_Stack>()) {
-      const IR::Type_Stack* stack_t = field_t->to<IR::Type_Stack>();
+    } else if (field_t->is<IR::Type_Array>()) {
+      const IR::Type_Array* stack_t = field_t->to<IR::Type_Array>();
       const IR::Type_Header* header_t = stack_t->elementType->to<IR::Type_Header>();
       CHECK_NULL(header_t);
       header_t->apply(visitor);
@@ -608,7 +608,7 @@ void FPGAParser::emitAcceptedHeaders(const IR::Type_Struct* headers) {
       for (auto m : program->metadata) {
         auto member = m.second;
       }
-    } else if (type->is<IR::Type_Stack>()) {
+    } else if (type->is<IR::Type_Array>()) {
       warning("TODO: generate out_ff for header stack;");
     } else {
       error("Unknown header type ", type);

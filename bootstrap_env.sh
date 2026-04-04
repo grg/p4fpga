@@ -20,7 +20,8 @@ install_linux_packages() {
     apt_packages="g++ git automake libtool bison flex libfl-dev \
 		  libgmp-dev libboost-dev libboost-iostreams-dev libboost-graph-dev \
 		  libboost-system-dev libboost-filesystem-dev \
-		  pkg-config python3 python3-scapy tcpdump cmake"
+		  pkg-config python3 python3-scapy tcpdump cmake \
+		  libgc-dev"
 
     echo "Need sudo privs to install apt packages"
     $SUDO apt-get update || die "Failed to update apt"
