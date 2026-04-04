@@ -13,6 +13,7 @@ set (P4FPGA_BACKEND_SRCS
     cpp/target.cpp
     cpp/type.cpp
     cpp/union.cpp
+    cpp/RiscVActionGenerator.cpp
 )
 
 set (P4FPGA_BACKEND_HDRS
@@ -34,6 +35,7 @@ set (P4FPGA_BACKEND_HDRS
     cpp/type.h
     cpp/union.h
     cpp/vector_utils.h
+    cpp/RiscVActionGenerator.h
 )
 
 set (P4FPGA_IR_DEF_FILES
